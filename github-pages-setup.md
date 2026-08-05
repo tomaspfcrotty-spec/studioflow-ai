@@ -16,6 +16,9 @@ The front end currently points to:
 
 That means the static site can be published without exposing any API key in the browser.
 
+## Current published URL
+- `https://tomaspfcrotty-spec.github.io/studioflow-ai/`
+
 ## Publish steps
 1. Create a GitHub repository for the project if one does not already exist.
 2. Upload the front-end files to the repository root.

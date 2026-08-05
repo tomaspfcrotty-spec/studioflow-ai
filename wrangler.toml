@@ -4,4 +4,4 @@ compatibility_date = "2026-08-05"
 
 [vars]
 GOOGLE_SHEET_ID = "1sU5bLnSKO6cGtx_emZGVwEkZHDNS6pxpvze4UWa4IRg"
-ALLOWED_ORIGIN = "*"
+ALLOWED_ORIGIN = "https://tomaspfcrotty-spec.github.io"

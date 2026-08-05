@@ -63,7 +63,7 @@ chatForm.addEventListener("submit", async (event) => {
 
 async function checkHealth() {
   try {
-    const response = await fetch(WORKER_URL);
+    const response = await fetch(WORKER_URL, { method: "OPTIONS" });
     if (!response.ok) {
       throw new Error("Health check failed");
     }

@@ -9,7 +9,7 @@ Ciaran Doyle, Manager
 - Maker stage complete
 - Communicator stage complete
 - Cloudflare Worker deployed
-- Front-end static site prepared for GitHub Pages publication
+- Front-end static site published to GitHub Pages
 
 ## Completed artifacts
 - `research-brief.md`
@@ -78,6 +78,10 @@ The deployed Worker is live at:
 
 It fetches the shared Google Sheet at runtime and returns grounded chatbot answers.
 
+The published front end is live at:
+
+- `https://tomaspfcrotty-spec.github.io/studioflow-ai/`
+
 ### Strategic rationale
 The prototype addresses customer engagement friction directly by replacing operational dependence on social media with a clearer live assistant and by making coaches more visible as trust-building assets.
 
@@ -89,9 +93,8 @@ The pipeline contains enough evidence of iteration, especially around:
 - deployment troubleshooting
 
 ## Open issues
-- GitHub Pages still needs to be published from a GitHub repository.
-- Once the final Pages URL exists, `ALLOWED_ORIGIN` should be narrowed from `*` to the published domain.
-- The Worker should be redeployed after that CORS restriction is applied.
+- A final browser-side smoke test should be captured as screenshots for submission evidence.
+- If the Worker URL ever changes, `app.js` must be updated to the new deployed endpoint.
 
 ## Final executive synthesis
 StudioFlow AI is now a defensible multi-agent customer engagement prototype. The system uses a live Google Sheet to answer questions about classes, availability, coaches, memberships, FAQs, and announcements through a Cloudflare Worker-backed chatbot. The strongest strategic contribution is that it addresses a real customer problem: the studio currently relies too heavily on social media for timetable communication, while customers still lack clear visibility into class fullness and coach identity. The prototype reduces that uncertainty while preserving trust through AI disclosure, bounded claims, and caution around suspicious live data.
