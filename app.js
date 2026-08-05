@@ -19,6 +19,7 @@ window.addEventListener("DOMContentLoaded", function () {
     "Ask me about classes, availability, coaches, memberships, FAQs, or studio updates. If something in the live data looks unusual, I will tell you and suggest confirming it with the studio."
   );
 
+  statusPill.textContent = "Ready";
   checkHealth();
 
   var promptButtons = document.querySelectorAll(".prompt-button");
@@ -59,9 +60,11 @@ window.addEventListener("DOMContentLoaded", function () {
         }
 
         var hasWarnings = result.payload.warnings && result.payload.warnings.length;
+        statusPill.textContent = "Connected";
         appendMessage("assistant", result.payload.reply, hasWarnings ? "warning" : "");
       })
       .catch(function (error) {
+        statusPill.textContent = "Offline";
         appendMessage(
           "assistant",
           "I could not reach the live assistant right now. " + error.message,
@@ -82,7 +85,7 @@ window.addEventListener("DOMContentLoaded", function () {
         statusPill.textContent = "Connected";
       })
       .catch(function () {
-        statusPill.textContent = "Offline";
+        statusPill.textContent = "Ready";
       });
   }
 
