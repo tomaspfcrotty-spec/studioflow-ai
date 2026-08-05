@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudioFlow AI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <p class="eyebrow">StudioFlow AI</p>
+        <h1>Find the right class, check availability, and discover the right coach.</h1>
+        <p class="intro">
+          This AI assistant uses live studio data to answer class, coach, pricing, FAQ,
+          and update questions. If something looks unusual or cannot be confirmed, it
+          will say so.
+        </p>
+      </section>
+
+      <section class="chat-card" aria-label="StudioFlow AI chat">
+        <div class="chat-header">
+          <div>
+            <h2>Ask StudioFlow AI</h2>
+            <p>You are chatting with an AI assistant powered by live studio information.</p>
+          </div>
+          <span class="status-pill" id="connection-status">Not connected</span>
+        </div>
+
+        <div id="chat-log" class="chat-log" aria-live="polite"></div>
+
+        <div class="quick-prompts" aria-label="Suggested prompts">
+          <button type="button" class="prompt-button">What classes are on Friday?</button>
+          <button type="button" class="prompt-button">Is Evening HIIT full?</button>
+          <button type="button" class="prompt-button">Who teaches Pilates?</button>
+          <button type="button" class="prompt-button">How much is Intro 2 Weeks?</button>
+        </div>
+
+        <form id="chat-form" class="chat-form">
+          <label class="visually-hidden" for="chat-input">Ask a question</label>
+          <textarea
+            id="chat-input"
+            name="message"
+            rows="3"
+            placeholder="Ask about classes, coaches, memberships, FAQs, or studio updates"
+            required
+          ></textarea>
+          <button type="submit" id="send-button">Send</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

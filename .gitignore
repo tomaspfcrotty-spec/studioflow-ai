@@ -1,0 +1,11 @@
+.dev.vars
+.dev.vars.txt
+.wrangler/
+node_modules/
+
+API Key*
+Final Assignment Brief.pdf
+Lecturer Guide for Final Assignment Transcript.pdf
+Week */
+
+*.log

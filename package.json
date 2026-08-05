@@ -1,0 +1,15 @@
+{
+  "name": "final-assignment",
+  "version": "1.0.0",
+  "description": "Aoife Byrne, Maker",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

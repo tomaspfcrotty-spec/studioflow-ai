@@ -1,0 +1,8 @@
+membership_id,membership_name,price_eur,billing_period,description,ideal_for,commitment_type
+M001,Intro 2 Weeks,5000,one-off,Unlimited classes for 14 days from first visit,new customers wanting to try the studio,short-term
+M002,4 Classes Monthly,65,monthly,Four classes per month with seven-day advance booking,customers with a flexible schedule,rolling
+M003,8 Classes Monthly,109,monthly,Eight classes per month with ten-day advance booking,regular attendees balancing budget and routine,rolling
+M004,Unlimited Monthly,149,monthly,Unlimited classes with priority booking and one guest pass per month,high-frequency members,rolling
+M005,Reformer Pack 5,95,one-off,Five reformer Pilates classes valid for eight weeks,customers focused on Pilates,pack
+M006,Student Wellness,79,monthly,Six classes per month at a reduced rate with valid student ID,students seeking affordable training,rolling
+M007,Elite Platinum Founder Circle,249,monthly,Unlimited classes premium lounge access and private concierge booking support,VIP members seeking an ultra-premium experience,rolling

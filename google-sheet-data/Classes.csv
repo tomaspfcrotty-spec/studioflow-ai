@@ -1,0 +1,26 @@
+class_id,class_name,date,day,start_time,duration_minutes,coach_id,slots_left,status,waitlist_open,location,category
+CL001,Morning Flow Yoga,2026-08-10,Monday,07:00,45,C001,6,available,no,Studio A,Yoga
+CL002,Lunchtime Pilates,2026-08-10,Monday,12:30,45,C002,2,available,no,Studio B,Pilates
+CL003,Evening HIIT,2026-08-10,Monday,18:00,50,C003,0,full,yes,Studio A,HIIT
+CL004,Recovery Mobility,2026-08-10,Monday,19:15,45,C005,8,available,no,Studio B,Mobility
+CL005,Sunrise Strength,2026-08-11,Tuesday,07:00,50,C004,4,available,no,Studio A,Strength
+CL006,Beginner Reformer Pilates,2026-08-11,Tuesday,12:30,50,C002,0,full,yes,Studio B,Pilates
+CL007,Power Yoga,2026-08-11,Tuesday,18:00,60,C001,1,available,no,Studio A,Yoga
+CL008,Box Fit Express,2026-08-11,Tuesday,19:15,45,C003,5,available,no,Studio A,Cardio
+CL009,Core and Control,2026-08-12,Wednesday,07:30,45,C002,7,available,no,Studio B,Pilates
+CL010,Strength Foundations,2026-08-12,Wednesday,17:30,50,C004,3,available,no,Studio A,Strength
+CL011,Restorative Yoga,2026-08-12,Wednesday,18:45,60,C001,10,available,no,Studio B,Yoga
+CL012,Coach's Choice Conditioning,2026-08-12,Wednesday,20:00,45,C003,0,full,no,Studio A,HIIT
+CL013,Mobility for Runners,2026-08-13,Thursday,07:00,45,C005,9,available,no,Studio B,Mobility
+CL014,Reformer Pilates,2026-08-13,Thursday,12:30,50,C002,2,available,no,Studio B,Pilates
+CL015,Lower Body Strength,2026-08-13,Thursday,18:00,50,C004,0,full,yes,Studio A,Strength
+CL016,Slow Flow Yoga,2026-08-13,Thursday,19:15,45,C001,6,available,no,Studio A,Yoga
+CL017,Full Body Burn,2026-08-14,Friday,07:00,45,C003,4,available,no,Studio A,HIIT
+CL018,Pilates Reset,2026-08-14,Friday,12:30,45,C002,8,available,no,Studio B,Pilates
+CL019,Friday Wind Down Yoga,2026-08-14,Friday,17:45,60,C001,12,available,no,Studio B,Yoga
+CL020,Weekend Warrior Strength,2026-08-15,Saturday,09:00,60,C004,1,available,no,Studio A,Strength
+CL021,Saturday Sculpt Pilates,2026-08-15,Saturday,10:15,50,C002,0,full,yes,Studio B,Pilates
+CL022,Community Mobility,2026-08-15,Saturday,11:30,45,C005,14,available,no,Studio A,Mobility
+CL023,Sunday Reset Yoga,2026-08-16,Sunday,09:30,60,C001,11,available,no,Studio B,Yoga
+CL024,Beginner Strength Lab,2026-08-16,Sunday,11:00,50,C004,5,available,no,Studio A,Strength
+CL025,Moonlight Metabolic Blast,2026-08-14,Friday,04:00,45,C003,9,available,no,Studio A,HIIT
