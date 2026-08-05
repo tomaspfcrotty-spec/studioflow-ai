@@ -8,6 +8,7 @@ const TAB_URLS = {
 
 export default {
   async fetch(request, env) {
+    const url = new URL(request.url);
     const corsHeaders = {
       "Access-Control-Allow-Origin": env.ALLOWED_ORIGIN || "*",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
@@ -16,6 +17,17 @@ export default {
 
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
+    }
+
+    if (request.method === "GET" && url.pathname === "/health") {
+      return json(
+        {
+          ok: true,
+          service: "studioflow-ai-worker",
+          status: "healthy",
+        },
+        corsHeaders
+      );
     }
 
     if (request.method === "GET") {
