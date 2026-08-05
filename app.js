@@ -1,87 +1,101 @@
-const WORKER_URL = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
-  ? "http://127.0.0.1:8787"
-  : "https://studioflow-ai-worker.tomaspfcrotty.workers.dev";
+window.addEventListener("DOMContentLoaded", function () {
+  var WORKER_URL =
+    window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost"
+      ? "http://127.0.0.1:8787"
+      : "https://studioflow-ai-worker.tomaspfcrotty.workers.dev";
 
-const chatLog = document.getElementById("chat-log");
-const chatForm = document.getElementById("chat-form");
-const chatInput = document.getElementById("chat-input");
-const sendButton = document.getElementById("send-button");
-const statusPill = document.getElementById("connection-status");
+  var chatLog = document.getElementById("chat-log");
+  var chatForm = document.getElementById("chat-form");
+  var chatInput = document.getElementById("chat-input");
+  var sendButton = document.getElementById("send-button");
+  var statusPill = document.getElementById("connection-status");
 
-appendMessage(
-  "assistant",
-  "Ask me about classes, availability, coaches, memberships, FAQs, or studio updates. If something in the live data looks unusual, I will tell you and suggest confirming it with the studio."
-);
-
-checkHealth();
-
-for (const button of document.querySelectorAll(".prompt-button")) {
-  button.addEventListener("click", () => {
-    chatInput.value = button.textContent.trim();
-    chatInput.focus();
-  });
-}
-
-chatForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const message = chatInput.value.trim();
-
-  if (!message) {
+  if (!chatLog || !chatForm || !chatInput || !sendButton || !statusPill) {
     return;
   }
 
-  appendMessage("user", message);
-  chatInput.value = "";
-  setBusy(true);
+  appendMessage(
+    "assistant",
+    "Ask me about classes, availability, coaches, memberships, FAQs, or studio updates. If something in the live data looks unusual, I will tell you and suggest confirming it with the studio."
+  );
 
-  try {
-    const response = await fetch(WORKER_URL, {
+  checkHealth();
+
+  var promptButtons = document.querySelectorAll(".prompt-button");
+  for (var i = 0; i < promptButtons.length; i += 1) {
+    promptButtons[i].addEventListener("click", function () {
+      chatInput.value = this.textContent.trim();
+      chatInput.focus();
+    });
+  }
+
+  chatForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var message = chatInput.value.trim();
+
+    if (!message) {
+      return;
+    }
+
+    appendMessage("user", message);
+    chatInput.value = "";
+    setBusy(true);
+
+    fetch(WORKER_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message }),
-    });
+      body: JSON.stringify({ message: message }),
+    })
+      .then(function (response) {
+        return response.json().then(function (payload) {
+          return { ok: response.ok, payload: payload };
+        });
+      })
+      .then(function (result) {
+        if (!result.ok) {
+          throw new Error(result.payload.error || "Request failed");
+        }
 
-    const payload = await response.json();
+        var hasWarnings = result.payload.warnings && result.payload.warnings.length;
+        appendMessage("assistant", result.payload.reply, hasWarnings ? "warning" : "");
+      })
+      .catch(function (error) {
+        appendMessage(
+          "assistant",
+          "I could not reach the live assistant right now. " + error.message,
+          "warning"
+        );
+      })
+      .finally(function () {
+        setBusy(false);
+      });
+  });
 
-    if (!response.ok) {
-      throw new Error(payload.error || "Request failed");
-    }
+  function checkHealth() {
+    fetch(WORKER_URL + "/health")
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Health check failed");
+        }
+        statusPill.textContent = "Connected";
+      })
+      .catch(function () {
+        statusPill.textContent = "Offline";
+      });
+  }
 
-    appendMessage("assistant", payload.reply, payload.warnings?.length ? "warning" : "");
-  } catch (error) {
-    appendMessage(
-      "assistant",
-      `I could not reach the live assistant right now. ${error.message}`,
-      "warning"
-    );
-  } finally {
-    setBusy(false);
+  function setBusy(isBusy) {
+    sendButton.disabled = isBusy;
+    sendButton.textContent = isBusy ? "Sending..." : "Send";
+  }
+
+  function appendMessage(role, text, extraClass) {
+    var message = document.createElement("div");
+    message.className = ["message", role, extraClass || ""].join(" ").trim();
+    message.textContent = text;
+    chatLog.appendChild(message);
+    chatLog.scrollTop = chatLog.scrollHeight;
   }
 });
-
-async function checkHealth() {
-  try {
-    const response = await fetch(`${WORKER_URL}/health`);
-    if (!response.ok) {
-      throw new Error("Health check failed");
-    }
-    statusPill.textContent = "Connected";
-  } catch {
-    statusPill.textContent = "Offline";
-  }
-}
-
-function setBusy(isBusy) {
-  sendButton.disabled = isBusy;
-  sendButton.textContent = isBusy ? "Sending..." : "Send";
-}
-
-function appendMessage(role, text, extraClass = "") {
-  const message = document.createElement("div");
-  message.className = `message ${role} ${extraClass}`.trim();
-  message.textContent = text;
-  chatLog.appendChild(message);
-  chatLog.scrollTop = chatLog.scrollHeight;
-}
