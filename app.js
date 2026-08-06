@@ -26,19 +26,23 @@ window.addEventListener("DOMContentLoaded", function () {
   for (var i = 0; i < promptButtons.length; i += 1) {
     promptButtons[i].addEventListener("click", function () {
       chatInput.value = this.textContent.trim();
-      chatForm.requestSubmit();
+      sendCurrentMessage();
     });
   }
 
   chatInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
-      chatForm.requestSubmit();
+      sendCurrentMessage();
     }
   });
 
   chatForm.addEventListener("submit", function (event) {
     event.preventDefault();
+    sendCurrentMessage();
+  });
+
+  function sendCurrentMessage() {
     var message = chatInput.value.trim();
 
     if (!message) {
@@ -81,7 +85,7 @@ window.addEventListener("DOMContentLoaded", function () {
       .finally(function () {
         setBusy(false);
       });
-  });
+  }
 
   function checkHealth() {
     fetch(WORKER_URL + "/health")
