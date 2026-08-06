@@ -26,9 +26,16 @@ window.addEventListener("DOMContentLoaded", function () {
   for (var i = 0; i < promptButtons.length; i += 1) {
     promptButtons[i].addEventListener("click", function () {
       chatInput.value = this.textContent.trim();
-      chatInput.focus();
+      chatForm.requestSubmit();
     });
   }
+
+  chatInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      chatForm.requestSubmit();
+    }
+  });
 
   chatForm.addEventListener("submit", function (event) {
     event.preventDefault();
