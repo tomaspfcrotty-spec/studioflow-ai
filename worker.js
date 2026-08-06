@@ -133,7 +133,30 @@ function detectIntent(message) {
     return "announcements";
   }
 
-  return "classes";
+  if (
+    text.includes("class") ||
+    text.includes("schedule") ||
+    text.includes("time") ||
+    text.includes("availability") ||
+    text.includes("full") ||
+    text.includes("waitlist") ||
+    text.includes("friday") ||
+    text.includes("monday") ||
+    text.includes("tuesday") ||
+    text.includes("wednesday") ||
+    text.includes("thursday") ||
+    text.includes("saturday") ||
+    text.includes("sunday") ||
+    text.includes("yoga") ||
+    text.includes("pilates") ||
+    text.includes("strength") ||
+    text.includes("mobility") ||
+    text.includes("hiit")
+  ) {
+    return "classes";
+  }
+
+  return "unsupported";
 }
 
 function tabsForIntent(intent) {
@@ -146,6 +169,8 @@ function tabsForIntent(intent) {
       return ["FAQs", "Announcements"];
     case "announcements":
       return ["Announcements"];
+    case "unsupported":
+      return [];
     default:
       return ["Classes", "Coaches", "Announcements"];
   }
@@ -168,6 +193,32 @@ async function buildContext(intent, userMessage, env) {
     warnings: detectWarnings(filtered),
     data: filtered,
   };
+}
+
+function unsupportedReply(userMessage) {
+  const text = String(userMessage || "").toLowerCase();
+
+  if (text.includes("weather")) {
+    return [
+      "I cannot help with weather updates.",
+      "I am StudioFlow's live assistant, so I can only answer studio questions such as class times, availability, coach information, memberships, FAQs, and announcements.",
+      "Try asking something like 'What classes are on Friday?' or 'Is Evening HIIT full?'",
+    ].join(" ");
+  }
+
+  if (text.includes("penguin")) {
+    return [
+      "Penguins in top hats are outside my remit.",
+      "I am here to help with StudioFlow's live studio information, for example classes, coach details, membership pricing, and current updates.",
+      "A better question for me would be 'Who teaches Pilates?' or 'How much is Intro 2 Weeks?'",
+    ].join(" ");
+  }
+
+  return [
+    "That is outside what I can help with.",
+    "I am StudioFlow's live studio assistant, so I only answer questions grounded in current class, coach, membership, FAQ, and announcement data.",
+    "Try asking 'What classes are on Friday?', 'Who teaches Pilates?', or 'How much is Intro 2 Weeks?'",
+  ].join(" ");
 }
 
 async function fetchSheetCsv(sheetId, tabName) {
@@ -449,6 +500,10 @@ function toNumber(value) {
 }
 
 async function askOpenAI(userMessage, context, env) {
+  if (context.sourceTabs.length === 0) {
+    return unsupportedReply(userMessage);
+  }
+
   const systemPrompt = [
     "You are StudioFlow AI, a cautious customer service assistant for a boutique fitness studio.",
     "Answer only from the provided live data context.",
